@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "989831167249",
+    "firebase_url": "https://kuruk-chat-default-rtdb.firebaseio.com",
+    "project_id": "kuruk-chat",
+    "storage_bucket": "kuruk-chat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989831167249:android:04baba4dfde8d002c820b0",
+        "android_client_info": {
+          "package_name": "com.devadiman.kurukChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989831167249-q4kiir1a5dj3nfutro5fqgubavslv6sq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devadiman.kurukChat",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "989831167249-a52bd6m4noj00l1ecrn2octs0svs8tek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeE2PIwLX0y_4smQqu5zANvQWwjg0dFKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989831167249-a52bd6m4noj00l1ecrn2octs0svs8tek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
