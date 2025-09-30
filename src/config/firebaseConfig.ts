@@ -1,16 +1,10 @@
-// // firebaseConfig.ts
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-//
-// const firebaseConfig = {
-//   apiKey: process.env.API_KEY,
-//   authDomain: process.env.AUTH_DOMAIN,
-//   projectId: process.env.PROJECT_ID,
-//   storageBucket: process.env.STORAGE_BUCKET,
-//   appId: process.env.APP_ID,
-// };
-//
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-//
-// export { auth };
+// firebaseConfig.ts
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import firebase from '@react-native-firebase/app';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+firebase.setReactNativeAsyncStorage(AsyncStorage);
+// ✅ Just export the native SDK instances
+
+export { auth, firestore };

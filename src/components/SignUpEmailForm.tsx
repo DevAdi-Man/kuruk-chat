@@ -1,4 +1,11 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import Button from "./Button";
 import { RF } from "../utils/dimensions";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -6,6 +13,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { createUserWithEmail } from "../services/auth";
+import { useRouter } from "expo-router";
+import ProfileModal from "./ProfileModal";
 
 const SignUpSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required."),
@@ -18,14 +28,32 @@ const SignUpSchema = Yup.object().shape({
 const SignUpEmailForm = () => {
   const [showpassword, setShowPassword] = useState<boolean>(false);
   const [showconfpassword, setConfShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const routes = useRouter();
+  const handleSignUp = async (email: string, password: string) => {
+    //handle sign up with email and password
+    try {
+      setIsLoading(true);
+      await createUserWithEmail(email, password);
+      setModalVisible(true);
+    } catch (error) {
+      console.log("Sign up error ", error);
+      Alert.alert(
+        "Sign up failed. Please try again.",
+        (error as Error).message
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <View className="flex flex-1 my-8 justify-between">
       <Formik
         initialValues={{ email: "", password: "", confpassword: "" }}
         validationSchema={SignUpSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={(values) => handleSignUp(values.email, values.password)}
       >
         {({
           handleChange,
@@ -36,7 +64,7 @@ const SignUpEmailForm = () => {
           touched,
         }) => (
           <View className="flex flex-1 justify-between">
-            <View className="w-full mb-4">
+            <View className=" mx-4 mb-4">
               {/* Email Field */}
               <Text
                 className="text-[#0E2629] font-medium mb-2"
@@ -82,7 +110,7 @@ const SignUpEmailForm = () => {
                   color="black"
                 />
                 <TextInput
-                  className="border-[2px] rounded-3xl flex-1 py-4 pl-12  border-[#9DA6A7]"
+                  className="border-[2px] rounded-3xl flex-1 text-[#0E2629] py-4 pl-12  border-[#9DA6A7]"
                   placeholder="Enter password"
                   secureTextEntry={!showpassword}
                   value={values.password}
@@ -122,7 +150,7 @@ const SignUpEmailForm = () => {
                   color="black"
                 />
                 <TextInput
-                  className="border-[2px] rounded-3xl flex-1 pl-12 py-4 border-[#9DA6A7]"
+                  className="border-[2px] rounded-3xl flex-1 text-[#0E2629] pl-12 py-4 border-[#9DA6A7]"
                   placeholder="Confirm password"
                   secureTextEntry={!showconfpassword}
                   value={values.confpassword}
@@ -148,14 +176,29 @@ const SignUpEmailForm = () => {
               )}
             </View>
             {/* Submit Button */}
-            <Button
-              title="Continue"
-              className="w-full border-[1px] rounded-3xl py-4 bg-gray-200 flex-end mt-6"
-              onPress={handleSubmit}
-            />
+
+            {isLoading ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+              <Button
+                title="Continue"
+                className="border-2 border-[#9DA6A7] rounded-3xl py-4 bg-black mb-4 mx-4"
+                textName="text-white"
+                onPress={handleSubmit}
+              />
+            )}
           </View>
         )}
       </Formik>
+      <ProfileModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onComplete={() => {
+          setModalVisible(false);
+          // navigate to chat screen
+          routes.replace("/(main)/chat");
+        }}
+      />
     </View>
   );
 };

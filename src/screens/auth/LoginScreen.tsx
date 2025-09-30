@@ -15,7 +15,7 @@ const Login = () => {
                     <Entypo name="dots-three-horizontal" size={24} color="black" />
                 </Pressable>
             </View>
-            <OTPInput />
+            {/* <OTPInput /> */}
         </View>
     )
 }

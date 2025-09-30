@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -15,26 +16,29 @@ import Button from "@/src/components/Button";
 import CountryPicker, { CountryCode } from "react-native-country-picker-modal";
 import SignUpEmailForm from "@/src/components/SignUpEmailForm";
 import SocialMediaForm from "@/src/components/SocialMediaForm";
-import auth from "@react-native-firebase/auth";
 import { useAuthStore } from "@/src/store/auth";
+import { loginWithPhone } from "@/src/services/auth";
+
 const SignUp = () => {
   const routes = useRouter();
   const [activeTab, setActiveTab] = useState<string>("Phone");
   const [countryCode, setCountryCode] = useState<CountryCode>("IN");
   const [callingCode, setCallingCode] = useState("91");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+
   const handlePhoneAuth = async () => {
     try {
-      console.log("Calling code and phone number: ", callingCode, phoneNumber);
-      const confimation = await auth().signInWithPhoneNumber(
-        `+${callingCode}${phoneNumber}`
-      );
-      if (confimation) {
-        useAuthStore.getState().setConfirmation(confimation);
-        routes.push("/(auth)/otp");
-      }
+      setIsLoading(true);
+      const confirmation = await loginWithPhone(`+${callingCode}${phoneNumber}`);
+
+      useAuthStore.getState().setConfirmation(confirmation);
+      routes.push("/(auth)/otp");
     } catch (error) {
       console.log("Phone Auth error ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -99,7 +103,7 @@ const SignUp = () => {
               >
                 Phone Number
               </Text>
-              <View className="flex flex-row gap-4 w-full">
+              <View className="flex flex-row gap-2 w-full">
                 <Pressable className="border-[2px] border-[#9DA6A7] px-4 py-2 rounded-3xl flex flex-row items-center justify-center">
                   <CountryPicker
                     countryCode={countryCode}
@@ -125,11 +129,16 @@ const SignUp = () => {
                 />
               </View>
             </View>
-            <Button
-              onPress={() => handlePhoneAuth()}
-              title="Continue"
-              className="w-full border-[1px] rounded-3xl py-4 bg-gray-200"
-            />
+            {isLoading ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+              <Button
+                onPress={() => handlePhoneAuth()}
+                title="Continue"
+                className="border-2 border-[#9DA6A7] rounded-3xl py-4 bg-black mb-4 mx-4"
+                textName="text-white"
+              />
+            )}
           </View>
         )}
 

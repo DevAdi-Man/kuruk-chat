@@ -6,11 +6,9 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
-
-
 const Otp = () => {
   const routes = useRouter();
-const { confirmation } = useAuthStore();
+  const { confirmation } = useAuthStore();
   return (
     <View className="flex-1   pt-10  p-4">
       <View className="flex flex-row justify-between items-center">
@@ -57,7 +55,7 @@ const { confirmation } = useAuthStore();
         </View>
       </View>
 
-      <OTPInput confirmation={confirmation}/>
+      <OTPInput confirmation={confirmation} />
     </View>
   );
 };

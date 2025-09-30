@@ -5,7 +5,7 @@ import { hp, RF, wp } from "../utils/dimensions"
 const SocialMediaForm = () => {
 
     return (
-        <View className="my-8 gap-4">
+        <View className="my-16 mx-4 gap-8">
             <View className="relative flex flex-row w-full items-center">
                 <Image source={require("../../assets/images/apple.png")} className="absolute left-8" style={{ width: wp(6), height: hp(3) }} />
                 <Button title="Continue with Apple" className="border-[2px] w-full border-[#9DA6A7] rounded-3xl py-4 text-center " textName="font-bold" textStyle={{ fontSize: RF(17) }} />
