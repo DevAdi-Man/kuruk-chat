@@ -39,9 +39,7 @@ export const googleSocialAccount = async () => {
 
     //get user id token
     const signInResult = await GoogleSignin.signIn();
-    console.log("signInResult: ",signInResult)
     let idToken = signInResult.data?.idToken
-    console.log("token: ", idToken)
     if (!idToken) {
         throw new Error("No id token found");
     }
@@ -50,4 +48,14 @@ export const googleSocialAccount = async () => {
 
     return auth().signInWithCredential(googleCredential)
 
+}
+
+//logout
+export const Logout = async () => {
+    try {
+        await auth().signOut();
+        console.log("signout successfully");
+    } catch (error) {
+        console.log("error while logout : ", (error as Error).message)
+    }
 }

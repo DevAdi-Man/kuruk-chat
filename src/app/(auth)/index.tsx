@@ -1,4 +1,5 @@
 import Button from "@/src/components/Button";
+import { auth } from "@/src/config/firebaseConfig";
 import { hp, hs, RF, wp } from "@/src/utils/dimensions";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -6,6 +7,7 @@ import { Image, Text, View } from "react-native";
 
 export default function Index() {
   const routes = useRouter();
+    console.log("user: ",auth().currentUser )
   return (
     <View className="flex-1  p-4  justify-center items-center">
       <View
