@@ -50,19 +50,21 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ]
+      ],
+        "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
     "extra":{
-      "API_KEY":"AIzaSyA7fz-pFV7dGMECSH7-_lBSo8KZaFQcE0w",
-      "AUTH_DOMAIN":"kuruk-chat.firebaseapp.com",
-      "PROJECT_ID":"kuruk-chat",
-      "STORAGE_BUCKET":"kurukchat.appspot.com",
-      "APP_ID":"1:989831167249:android:04baba4dfde8d002c820b0",
-      "DATABASE_URL":"https://kuruk-chat-default-rtdb.firebaseio.com/"
+      "app_key":"AIzaSyA7fz-pFV7dGMECSH7-_lBSo8KZaFQcE0w",
+      "auth_domain":"kuruk-chat.firebaseapp.com",
+      "project_id":"kuruk-chat",
+      "storage_bucket":"kurukchat.appspot.com",
+      "app_id":"1:989831167249:android:04baba4dfde8d002c820b0",
+      "database_url":"https://kuruk-chat-default-rtdb.firebaseio.com/",
+      "webClientId": "989831167249-a52bd6m4noj00l1ecrn2octs0svs8tek.apps.googleusercontent.com"
     }
   }
 }

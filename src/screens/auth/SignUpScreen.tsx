@@ -120,7 +120,7 @@ const SignUp = () => {
                   <Entypo name="chevron-down" size={20} color="#0E2629" />
                 </Pressable>
                 <TextInput
-                  className="border-[2px] rounded-3xl  flex-1 pl-6 border-[#9DA6A7] "
+                  className="border-[2px] rounded-3xl  flex-1 py-4 pl-6 border-[#9DA6A7] "
                   placeholder="Enter phone number"
                   keyboardType="numeric"
                   value={phoneNumber}
