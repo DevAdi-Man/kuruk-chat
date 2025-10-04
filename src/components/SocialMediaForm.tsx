@@ -5,6 +5,7 @@ import { googleSocialAccount } from "../services/auth"
 import { useRouter } from "expo-router"
 import ProfileModal from "./ProfileModal"
 import { useState } from "react"
+import { auth, firestore } from "../config/firebaseConfig"
 
 const SocialMediaForm = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -14,7 +15,20 @@ const SocialMediaForm = () => {
         try {
             setIsLoading(true)
             await googleSocialAccount();
-            setModalVisible(true)
+            const user = auth().currentUser;
+            if (!user) throw new Error("No logged in user");
+
+            // Check if user profile exists in Firestore
+            const docRef = firestore().collection("users").doc(user.uid);
+            const docSnap = await docRef.get();
+
+            if (docSnap.exists()) {
+                // user already has profile → go to main screen
+                routes.replace("/(main)/chat");
+            } else {
+                // new user → show profile modal
+                setModalVisible(true);
+            }
         } catch (error) {
             console.log("error with google :", error)
             Alert.alert("SignIn with google does not working.", (error as Error).message);

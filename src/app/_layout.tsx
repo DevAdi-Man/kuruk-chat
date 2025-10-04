@@ -1,8 +1,7 @@
-import { Slot, Stack, useRouter } from "expo-router";
+import { Slot, useRouter } from "expo-router";
 import "../global.css";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar, useColorScheme } from "react-native";
-import { useUserStore } from "../store/user";
 import { useEffect } from "react";
 import { auth } from "../config/firebaseConfig";
 export default function RootLayout() {

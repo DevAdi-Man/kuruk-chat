@@ -1,5 +1,6 @@
 import { auth } from "../config/firebaseConfig";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
 export async function loginWithPhone(phoneNumber: string) {
     try {
         const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
@@ -32,6 +33,17 @@ export async function createUserWithEmail(email: string, password: string) {
     }
 }
 
+export async function loginWithEmail(email: string, password: string) {
+    try {
+        const userCredential = await auth().signInWithEmailAndPassword(email, password)
+
+        return userCredential.user;
+    } catch (error) {
+        console.error("Email signin error:", error);
+        throw error;
+    }
+}
+
 //Sign up with social account
 export const googleSocialAccount = async () => {
     //check kre ga ke google play serivce device support kr rha hai ya nhi
@@ -49,6 +61,7 @@ export const googleSocialAccount = async () => {
     return auth().signInWithCredential(googleCredential)
 
 }
+
 
 //logout
 export const Logout = async () => {
